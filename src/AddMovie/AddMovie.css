@@ -1,0 +1,12 @@
+
+.addForm{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  
+}
+.add{
+    margin-left: 600px;
+    margin-top: 20px;
+}

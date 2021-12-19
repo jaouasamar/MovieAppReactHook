@@ -1,0 +1,11 @@
+.movies
+{
+    display: flex;
+   
+   justify-content: baseline;
+    overflow-x: auto;
+	flex-wrap: nowrap;
+   
+    
+  
+}
