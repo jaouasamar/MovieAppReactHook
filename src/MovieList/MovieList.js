@@ -3,20 +3,20 @@ import React from 'react'
 import MovieCard from '../MovieCard/MovieCard'
 import './MovieList.css'
 
-const MovieList = ({movies}) => {
+const MovieList = ({movies,handleRemove}) => {
   
     return (
     
   
 
        
-        <div className='movies' >
-   
+        <div className='container' >
+            <div className='movies'>
             {movies.map((elt,index)=>
-                <MovieCard  movie={elt} key={index}/>
+                <MovieCard handleRemove={handleRemove}  movie={elt} key={index}/>
                 
                 )}
-    
+            </div>
         </div>
         
       

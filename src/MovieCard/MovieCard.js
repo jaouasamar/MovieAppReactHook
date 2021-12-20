@@ -21,12 +21,15 @@ import Stack from '@mui/material/Stack';
 import { Button, Grid, Rating } from '@mui/material';
 import Card from 'react-bootstrap/Card';
 import { useState } from "react";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import './MovieCard.css';
 
 
 
-export default function MovieCard({movie}) {
+export default function MovieCard({movie,handleRemove}) {
     // console.log({elt});
   const [expanded, setExpanded] = React.useState(false);
   const [style, setStyle] = useState("grayColor");
@@ -85,21 +88,68 @@ const ExpandMore = styled((props) => {
       },
     },
   }));
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const options = [
+    'None',
+    'Delete',
+    
+  ];
+  
+  const ITEM_HEIGHT = 48;
   return (
 
     <Card style={{marginRight:"20px"}}>
     <CardHeader
      
       action={
-        <IconButton aria-label="settings">
-          <MoreVertIcon />
-        </IconButton>
+        <div>
+        <IconButton
+        aria-label="more"
+        id="long-button"
+        aria-controls="long-menu"
+        aria-expanded={open ? 'true' : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+       <Menu
+       id="long-menu"
+       MenuListProps={{
+         'aria-labelledby': 'long-button',
+       }}
+       anchorEl={anchorEl}
+       open={open}
+       onClose={handleClose}
+       PaperProps={{
+         style: {
+           maxHeight: ITEM_HEIGHT * 4.5,
+           width: '20ch',
+         },
+       }}
+     >
+       {options.map((option) => (
+         <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+            {option}
+           {option=='Delete'? ()=>{handleRemove(movie.id);console.log("delete clicked")}:""}
+         </MenuItem>
+       ))}
+     </Menu>
+     </div>
       }
      
     />
     <CardMedia
       component="img"
-      height="194"
+      height="150"
+      width="150"
       image={movie.posterURL}
       alt="Paella dish"
     />
@@ -125,6 +175,9 @@ const ExpandMore = styled((props) => {
       </IconButton>
       <IconButton aria-label="share">
         <ShareIcon />
+      </IconButton>
+      <IconButton aria-label="share">
+      <DeleteOutlineIcon onClick={()=>handleRemove(movie.id)}/>
       </IconButton>
      
       <ExpandMore

@@ -152,13 +152,14 @@ function App() {
 
   const handleSearch = (e) => {setSearchValue(e.target.value)}
   const handleRating = (e) => {setRate(e.target.value)}
+  const handleRemove=(idMovie)=>{setListMovies(listMovies.filter(movie=>movie.id!==idMovie))};
   
   return (
     <div>
       <MenuBar/>
       <Search searchValue={searchValue} handleSearch={handleSearch}/>
       <RatingComponent  rate={rate} handleRating={handleRating}/>
-      <MovieList movies= {listMovies .filter(
+      <MovieList  handleRemove={handleRemove} movies={listMovies .filter(
           (movie) =>
             movie.title.toLowerCase().trim().includes(searchValue.toLowerCase().trim()) &&
             movie.rating >= rate

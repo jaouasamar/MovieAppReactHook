@@ -14,7 +14,8 @@ export default function AddMovie({movies,handleAdd}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-   const { register, handleSubmit, errors } = useForm();
+   const { register, handleSubmit, errors ,reset} = useForm();
+    const { resetForm } = useForm();
   const onSubmit = (data) => {
     console.log(data);
     let newMovie = {
@@ -22,7 +23,8 @@ export default function AddMovie({movies,handleAdd}) {
       id: Math.random()
     };
     handleAdd(data);
-console.log(data);
+   reset();
+
 
   };
   const style = {
