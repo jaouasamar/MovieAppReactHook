@@ -6,6 +6,9 @@ import Search from "./Search/Search";
 import MovieList from "./MovieList/MovieList";
 import RatingComponent from "./Rating/RatingComponent";
 import MenuBar from "./Menu/Menu";
+import {BrowserRouter as Router, Route,Routes, Link } from 'react-router-dom';
+import Info from "./Info/Info";
+
 
 function App() {
   const movies = [
@@ -19,6 +22,8 @@ function App() {
       rating:4,
       categorie: "Familial",
       date: "December 2021",
+      trailer:"https://www.youtube.com/embed/JfVOs4VSpmA"
+      
     },
     {
       id: Math.random(),
@@ -30,6 +35,7 @@ function App() {
       rating:4,
       categorie: "Familial",
       date: "November 2021",
+      trailer:"https://www.youtube.com/embed/eGrlio69L1g"
     },
     {
       id: Math.random(),
@@ -41,6 +47,7 @@ function App() {
       rating:2,
       categorie: "Familial",
       date: "November 2021",
+      trailer:"https://www.youtube.com/embed/CaimKeDcudo"
     },
 
     {
@@ -53,6 +60,7 @@ function App() {
       rating:4,
       categorie: "Action",
       date: "September 2021",
+      trailer:"https://www.youtube.com/embed/PD3rUCBFDlI&t=27s"
     },
     {
       id: Math.random(),
@@ -63,6 +71,7 @@ function App() {
         "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nBEVcGyHNYCdkqel77P3Zpgk2lm.jpg",
       rating:5,
       categorie: "Action",
+      trailer:"https://www.youtube.com/embed/upMDS0-Bvok"
     },
     {
       id: Math.random(),
@@ -72,6 +81,7 @@ function App() {
         "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/bS7iANNhhoV0YfkRd4BkuvbFNx2.jpg",
       rating:5,
       categorie: "Sciences-Fiction",
+      trailer:"https://www.youtube.com/embed/CQopGH4qMEI"
     },
     {
       id: Math.random(),
@@ -83,6 +93,7 @@ function App() {
       rating:5,
       categorie: "Sciences-Fiction",
       date: "December 2021",
+      trailer:"https://www.youtube.com/embed/0DI3TB9jVDM"
     },
     {
       id: Math.random(),
@@ -94,6 +105,7 @@ function App() {
       rating:3,
       categorie: "Action",
       date: "Mars 2017",
+      trailer:"https://www.youtube.com/embed/qK7nMGNlHgk"
     },
     {
       id: Math.random(),
@@ -105,6 +117,7 @@ function App() {
       rating:3,
       categorie: "Action",
       date: "October 2020",
+      trailer:"https://www.youtube.com/embed/InLnfJmCcIQ"
     },
     {
       id: Math.random(),
@@ -116,6 +129,7 @@ function App() {
       rating:3,
       categorie: "Crime",
       date: "October 2021",
+      trailer:"https://www.youtube.com/embed/KmYOk8zNCIo"
     },
     {
       id: Math.random(),
@@ -127,6 +141,7 @@ function App() {
       rating:4,
       categorie: "Familial",
       date: "July 2021",
+      trailer:"https://www.youtube.com/embed/lQhxytDkqyw"
     },
     {
       id: Math.random(),
@@ -138,6 +153,7 @@ function App() {
       rating:4,
       categorie: "Comedie",
       date: "December 2021",
+      trailer:"https://www.youtube.com/embed/Fbr2ENcAk8k"
     }
 
 
@@ -155,8 +171,9 @@ function App() {
   const handleRemove=(idMovie)=>{setListMovies(listMovies.filter(movie=>movie.id!==idMovie))};
   
   return (
-    <div>
-      <MenuBar/>
+    <Router>
+    
+      {/* <MenuBar/>
       <Search searchValue={searchValue} handleSearch={handleSearch}/>
       <RatingComponent  rate={rate} handleRating={handleRating}/>
       <MovieList  handleRemove={handleRemove} movies={listMovies .filter(
@@ -166,8 +183,31 @@ function App() {
         )}
       />
       
+      <AddMovie handleAdd={handleAdd} movies={listMovies} /> */}
+     
+   <Routes>
+  
+  <Route path="/" element={ <div>
+  <MenuBar/>
+      <Search searchValue={searchValue} handleSearch={handleSearch}/>
+      <RatingComponent  rate={rate} handleRating={handleRating}/>
+      <MovieList  handleRemove={handleRemove} movies={listMovies .filter(
+          (movie) =>
+            movie.title.toLowerCase().trim().includes(searchValue.toLowerCase().trim()) &&
+            movie.rating >= rate
+        )}
+      />
+  
       <AddMovie handleAdd={handleAdd} movies={listMovies} />
-    </div>
+      </div>}/>
+  <Route path="/info/:title" element={<Info movies={listMovies}/>}/>
+
+  
+
+</Routes>
+     </Router>
+      
+ 
   );
 }
 
